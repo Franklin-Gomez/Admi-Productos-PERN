@@ -1,5 +1,6 @@
-import { Link , Form, useActionData, ActionFunction, ActionFunctionArgs } from "react-router-dom"
+import { Link , Form, useActionData, ActionFunctionArgs } from "react-router-dom"
 import ErrorMessage from "../Components/ErrorMessage"
+import { addProduct } from "../services/ProductService"
 
 // funcion para procesar los datos
 export async function action({request} : ActionFunctionArgs) { 
@@ -15,6 +16,8 @@ export async function action({request} : ActionFunctionArgs) {
     if( error.length ) { 
         return error
     }
+
+    addProduct( data )
 
     return {} // siempre retornaremos algo
 }

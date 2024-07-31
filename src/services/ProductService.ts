@@ -17,13 +17,11 @@ export const addProduct =  async ( data  : addProductPros) => {
 
         if( result.success) { 
 
-            const url = `${import.meta.env.VITE_API_URL}/api/products`;
+            const url = `${import.meta.env.VITE_API_URL}/api/products`
             const { data } = await axios.post(url , { 
                 name : result.output.name,
                 price : result.output.price
             })
-
-            console.log( data )
 
         } else { 
             throw new Error('Datos no validos')

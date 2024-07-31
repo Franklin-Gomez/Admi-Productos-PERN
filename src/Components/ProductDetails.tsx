@@ -28,7 +28,11 @@ export default function ProductDetails( {product}  : ProductDetailsProps) {
         <td className="p-3 text-lg text-gray-800 ">
           <div className='flex justify-evenly items-center'>
             <button 
-              onClick={() => navegate(`/productos/${product.id}/editar`)}
+              onClick={() => navegate(`/productos/${product.id}/editar` , { 
+                state: { 
+                  product : product
+                }
+              })}
               className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white hover:bg-indigo-300 shadow-sm "
             >
               Editar

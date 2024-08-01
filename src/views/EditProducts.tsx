@@ -53,8 +53,6 @@ export default function EditProducts() {
 
     const product = useLoaderData() as Product
 
-    console.log( product )
-
     return (
         <>
             <div className="flex justify-between">

@@ -1,7 +1,7 @@
 import { DraftProductSchema , ProducstSchema , ProductSchema , Product } from "../Types"
-import { safeParse } from "valibot"
+import { safeParse , pipe, transform , string , number , parse} from "valibot"
 import axios from "axios"
-
+import { toBoolean } from "../utils"
 
 type addProductPros = { 
     [k: string]: FormDataEntryValue
@@ -65,6 +65,21 @@ export const getProductsById =  async (id : Product['id']) => {
 }
 
 export const updateProduct = async ( data : addProductPros , id : Product['id'] ) => { 
-    console.log( data )
-    console.log( id )
+    try {
+        
+        // convertir a number de forma mas avanzada
+        const NumberSchema = pipe(string(), transform(Number) , number())
+
+        const result = safeParse( ProductSchema , {
+            id : id,
+            name : data.name,
+            price : parse( NumberSchema , data.price),
+            availability : toBoolean( data.availability.toString() )
+        })
+
+        console.log( result )
+
+    } catch (error) {
+        console.log( error )
+    }
 }

@@ -1,6 +1,8 @@
-import { Link , Form, useActionData, ActionFunctionArgs , redirect, LoaderFunctionArgs } from "react-router-dom"
+import { Link , Form, useActionData, ActionFunctionArgs , redirect, LoaderFunctionArgs , useLoaderData } from "react-router-dom"
 import ErrorMessage from "../Components/ErrorMessage"
-import { addProduct } from "../services/ProductService"
+import { addProduct , getProductsById } from "../services/ProductService"
+import { Product } from "../Types"
+
 
 // funcion para procesar los datos
 export async function action({request} : ActionFunctionArgs) { 
@@ -24,9 +26,17 @@ export async function action({request} : ActionFunctionArgs) {
 }
 
 // funcion para capturar los datos a editar
-export const loader = ( { params } : LoaderFunctionArgs) => { 
+export const loader = async( { params } : LoaderFunctionArgs) => { 
 
-    console.log(params.id)
+    if( params.id !== undefined) { 
+        const data = await getProductsById(+params.id)
+
+        if(!data) { 
+            return redirect('/')
+        }
+
+        return data
+    }
 
     return {}
 }
@@ -34,6 +44,11 @@ export const loader = ( { params } : LoaderFunctionArgs) => {
 export default function EditProducts() {
 
     const error = useActionData() as string
+
+    const product = useLoaderData() as Product
+
+    console.log( product )
+
 
 
     return (
@@ -68,6 +83,7 @@ export default function EditProducts() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Nombre del Producto"
                         name="name"
+                        defaultValue={product.name}
                     />
                 </div>
 
@@ -82,6 +98,7 @@ export default function EditProducts() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Precio Producto. ej. 200, 300"
                         name="price"
+                        defaultValue={product.price}
                     />
                 </div>
 

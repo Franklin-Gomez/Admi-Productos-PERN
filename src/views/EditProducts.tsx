@@ -42,6 +42,11 @@ export const loader = async( { params } : LoaderFunctionArgs) => {
     return {}
 }
 
+const availabilityOptions = [
+    { name: 'Disponible', value: true},
+    { name: 'No Disponible', value: false}
+]
+
 export default function EditProducts() {
 
     const error = useActionData() as string
@@ -99,6 +104,25 @@ export default function EditProducts() {
                         name="price"
                         defaultValue={product.price}
                     />
+                </div>
+
+                <div className="mb-4">
+                    <label
+                        className="text-gray-800"
+                        htmlFor="availability"
+                    >Disponibilidad:</label>
+                    <select 
+                        id="availability"
+                        className="mt-2 block w-full p-3 bg-gray-50"
+                        name="availability"
+                        defaultValue={product?.availability.toString()}
+                    >
+                        {availabilityOptions.map(option => (
+                            <option 
+                                key={option.name} value={option.value.toString()}
+                            >{option.name}</option>
+                        ))}
+                    </select>
                 </div>
 
                 <input

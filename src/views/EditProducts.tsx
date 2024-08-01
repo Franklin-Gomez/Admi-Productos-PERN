@@ -1,11 +1,10 @@
 import { Link , Form, useActionData, ActionFunctionArgs , redirect, LoaderFunctionArgs , useLoaderData } from "react-router-dom"
 import ErrorMessage from "../Components/ErrorMessage"
-import { addProduct , getProductsById } from "../services/ProductService"
+import { getProductsById , updateProduct } from "../services/ProductService"
 import { Product } from "../Types"
 
-
 // funcion para procesar los datos
-export async function action({request} : ActionFunctionArgs) { 
+export async function action({request , params } : ActionFunctionArgs ) { 
 
     const data = Object.fromEntries( await  request.formData() )
   
@@ -19,7 +18,9 @@ export async function action({request} : ActionFunctionArgs) {
         return error
     }
 
-    await addProduct( data )
+    if( params.id !== undefined) { 
+        await updateProduct( data , +params.id )
+    }
 
     //return {} // siempre retornaremos algo
     return redirect('/')
@@ -48,8 +49,6 @@ export default function EditProducts() {
     const product = useLoaderData() as Product
 
     console.log( product )
-
-
 
     return (
         <>

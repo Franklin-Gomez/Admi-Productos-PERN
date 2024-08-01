@@ -63,3 +63,8 @@ export const getProductsById =  async (id : Product['id']) => {
         console.log( error )
     }
 }
+
+export const updateProduct = async ( data : addProductPros , id : Product['id'] ) => { 
+    console.log( data )
+    console.log( id )
+}

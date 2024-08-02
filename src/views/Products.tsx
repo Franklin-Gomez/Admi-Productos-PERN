@@ -1,4 +1,4 @@
-import { Link , useLoaderData } from "react-router-dom"
+import { ActionFunctionArgs, Link , useLoaderData } from "react-router-dom"
 import { getProducts } from "../services/ProductService"
 import { Products as ProductsType} from "../Types"
 import ProductDetails from "../Components/ProductDetails"
@@ -9,9 +9,10 @@ export async function loader() {
   return products
 }
 
-export async function action() { 
+export async function action( { request} : ActionFunctionArgs) { 
 
-  console.log('Desde action');
+  const data = Object.fromEntries(await request.formData())
+  console.log( data )
 
   return {}
 }

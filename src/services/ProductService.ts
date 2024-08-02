@@ -100,3 +100,15 @@ export const deleteProduct = async ( id : Product['id'] ) => {
         
     }
 }
+
+export const updateAvailability = async ( id : Product['id']) => { 
+
+    try {
+        
+        const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
+        await axios.patch( url )
+        
+    } catch (error) {
+        console.log( error )
+    }
+}

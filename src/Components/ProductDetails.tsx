@@ -23,7 +23,7 @@ export default function ProductDetails( {product}  : ProductDetailsProps) {
 
   return (
     <>
-      <tr className="border-b ">
+      <tr className="border-b text-center ">
         <td className="p-3 text-lg text-gray-800">
             {product.name} 
         </td>
@@ -33,7 +33,20 @@ export default function ProductDetails( {product}  : ProductDetailsProps) {
         </td>
 
         <td className="p-3 text-lg text-gray-800">
-            {product.availability  ? 'Disponible' : 'No Disponible'} 
+          <form 
+            action="" 
+            method='POST' 
+          >
+            <button
+              type='submit'
+              name='availability'
+              value={product.availability.toString()}
+              className={`${product.availability ? 'text-green-600' 
+                : ' text-red-600 '} border w-full rounded-lg p-3 text-sm font-bold border-black-100 hover:cursor-pointer`}
+            >
+              {product.availability  ? 'Disponible' : 'No Disponible'} 
+            </button>
+          </form>
         </td>
 
         <td className="p-3 text-lg text-gray-800 ">

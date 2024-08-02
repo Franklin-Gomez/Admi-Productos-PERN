@@ -9,6 +9,12 @@ export async function loader() {
   return products
 }
 
+export async function action() { 
+
+  console.log('Desde action');
+
+  return {}
+}
 
 export default function Products() {
 
